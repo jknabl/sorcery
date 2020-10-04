@@ -27,6 +27,7 @@ module Sorcery
           require 'sorcery/providers/auth0'
           require 'sorcery/providers/line'
           require 'sorcery/providers/discord'
+          require 'sorcery/providers/questrade'
 
           Config.module_eval do
             class << self
@@ -43,6 +44,7 @@ module Sorcery
                     end
                   RUBY
                 end
+                puts "Providers are #{self.external_providers.to_s}"
               end
 
               def merge_external_defaults!
@@ -68,6 +70,7 @@ module Sorcery
           # does not provide a login URL.  (as of v0.8.1 all providers provide a login URL)
           def sorcery_login_url(provider_name, args = {})
             @provider = sorcery_get_provider provider_name
+
             sorcery_fixup_callback_url @provider
 
             return nil unless @provider.respond_to?(:login_url) && @provider.has_callback?
@@ -81,6 +84,12 @@ module Sorcery
             # the application should never ask for user hashes from two different providers
             # on the same request.  But if they do, we should be ready: on the second request,
             # clear out the instance variables if the provider is different
+            #
+
+            if provider_name == :questrade
+              puts "getting questrade provider \n\n"
+            end
+
             provider = sorcery_get_provider provider_name
             if @provider.nil? || @provider != provider
               @provider = provider

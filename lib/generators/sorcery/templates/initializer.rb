@@ -232,6 +232,15 @@ Rails.application.config.sorcery.configure do |config|
   # config.discord.secret = "xxxxxx"
   # config.discord.callback_url = "http://localhost:3000/oauth/callback?provider=discord"
   # config.discord.scope = "email guilds"
+  #
+
+  # For information about the Questrade API:
+  # https://www.questrade.com/api
+  # config.questrade.key = "xxxxxx"
+  # config.questrade.secret = "xxxxxx"
+  # config.questrade.callback_url = "https://localhost:3000/oauth/callback?provider=questrade"
+  # config.questrade.scope = "read_acc read_md"
+
   # --- user config ---
   config.user_config do |user|
     # -- core --
